@@ -9,4 +9,4 @@ tbl_t2 = read_fits_table('/home/jorge/Documents/DATA/cross/x_vvv-2mass-combis-ga
 
 tbl_out = jointiles(tbl_t1, tbl_t2)
 
-write_fits_table(tbl_out)
+write_fits_table(tbl_out, '/home/jorge/output.fits')
