@@ -9,7 +9,7 @@ setup(
     author_email='jrganais@gmail.com',
     license='MIT',
     packages=find_packages(),
-    install_requires=['numpy', 'matplotlib', 'astropy', 'scipy', 'ipython'],
+    install_requires=['numpy', 'matplotlib', 'astropy', 'scipy', 'ipython', 'yaml', 'PyYAML'],
     package_data={
         '': ['*.md'],
     },
