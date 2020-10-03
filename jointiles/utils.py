@@ -78,9 +78,18 @@ def jointiles(tbl_t1, tbl_t2, tolerance=0.34):
     ct2 = SkyCoord(tbl_t2['ra'], tbl_t2['dec'])
 
     idx_t1, d2d_t1, d3d = ct1.match_to_catalog_sky(ct2)
-    match_t1 = d2d_t1 <= tolerance * u.arcsec
+    diff_j_t1 = np.abs(tbl_t1['mag_J'] - tbl_t2['mag_J'][idx_t1]) < 0.5
+    diff_h_t1 = np.abs(tbl_t1['mag_H'] - tbl_t2['mag_H'][idx_t1]) < 0.5
+    diff_ks_t1 = np.abs(tbl_t1['mag_Ks'] - tbl_t2['mag_Ks'][idx_t1]) < 0.5
+    # Match considering also difference in magnitudes
+    match_t1 = (d2d_t1 <= tolerance * u.arcsec) * diff_j_t1 *  diff_h_t1 * diff_ks_t1
+
     idx_t2, d2d_t2, d3d = ct2.match_to_catalog_sky(ct1)
-    match_t2 = d2d_t2 <= tolerance * u.arcsec
+    diff_j_t2 = np.abs(tbl_t2['mag_J'] - tbl_t1['mag_J'][idx_t2]) < 0.5
+    diff_h_t2 = np.abs(tbl_t2['mag_H'] - tbl_t1['mag_H'][idx_t2]) < 0.5
+    diff_ks_t2 = np.abs(tbl_t2['mag_Ks'] - tbl_t1['mag_Ks'][idx_t2]) < 0.5
+    # Match considering also difference in magnitudes
+    match_t2 = (d2d_t2 <= tolerance * u.arcsec) * diff_j_t2 *  diff_h_t2 * diff_ks_t2
 
     # Stack not duplicated sources
     tbl_notdupl = vstack([tbl_t1[~match_t1], tbl_t2[~match_t2]])
