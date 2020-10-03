@@ -1,5 +1,7 @@
 from jointiles.utils import read_fits_table, write_fits_table, jointiles
 
+# 64 gb of memory ram is recommended to run this script.
+
 t067 = read_fits_table('/home/jorge/Documents/DATA/cross/x_vvv-2mass-combis-gaia/t067_vvv-2mass-combi-gaia_clean.fits')
 t0105 = read_fits_table('/home/jorge/Documents/DATA/cross/x_vvv-2mass-combis-gaia/t105_vvv-2mass-combi-gaia_clean.fits')
 t067_t105 = jointiles(t067, t0105)
